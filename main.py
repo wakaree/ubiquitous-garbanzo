@@ -32,7 +32,7 @@ async def startup_func(_):
 @dp.message_handler(commands=['start', 'welcome'])
 async def start_commands(message: types.Message):
     await message.answer(f"👋 <b>Привет, <a href='tg://user?id={message.from_user.id}'>{message.from_user.full_name}</a></b>")
-    await message.answer(f"❓ <b>Могу ли я узнать Ваше имя?</b>")
+    await message.answer(f"❓ <b>Как мне к Вам обращаться?</b>")
     await UserState.name_input.set()
 
 
