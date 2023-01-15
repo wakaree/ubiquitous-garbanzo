@@ -1,21 +1,21 @@
 
-import logging
+from logging import basicConfig, StreamHandler, INFO, FileHandler, info
 
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import StatesGroup, State
 
-import config
+from config import API_TOKEN
 
 # Настраиваем логгирование
-logging.basicConfig(handlers=(logging.FileHandler('logs.txt', encoding='utf-8'), logging.StreamHandler()),
-                    format='[%(asctime)s] %(levelname)s | %(name)s.%(module)s: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    level=logging.INFO)
+basicConfig(handlers=(FileHandler('logs.txt', encoding='utf-8'), StreamHandler()),
+            format='[%(asctime)s] %(levelname)s | %(name)s.%(module)s: %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S',
+            level=INFO)
 
 # Подключаемся к боту
-bot = Bot(token=config.API_TOKEN, parse_mode='html')
+bot = Bot(token=API_TOKEN, parse_mode='html')
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
@@ -26,7 +26,7 @@ class UserState(StatesGroup):
 
 # Выполняется при запуске приложения
 async def startup_func(_):
-    logging.info("Glückliches neues Jahr!")
+    info("Glückliches neues Jahr!")
 
 
 @dp.message_handler(commands=['start', 'welcome'])
